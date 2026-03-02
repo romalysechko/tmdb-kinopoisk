@@ -3,6 +3,8 @@ export const Path = {
     Categories: '/categories',
     PopularMovies:'popular-movies',
     TopRatedMovies:'top-movies',
+    UpcomingMovies:'upcoming-movies',
+    NowPlayingMovies:'nowPlaying-movies',
     FilteredMovies: '/movies/filter',
     Search: '/search',
     Favorites: '/favorites',

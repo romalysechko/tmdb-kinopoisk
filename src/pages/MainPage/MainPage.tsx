@@ -3,6 +3,8 @@ import {useMainPage} from "./useMainPage";
 import {MovieSearch} from "./MovieSearch";
 import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/PopularMoviesSection.tsx";
 import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/TopRatedMovies.tsx";
+import {UpcomingMovies} from "@/pages/СategoriesPage/MoviesSection/UpcomingMovies.tsx";
+import {NowPlayingMovies} from "@/pages/СategoriesPage/MoviesSection/NowPlayingMovies.tsx";
 
 export const MainPage = () => {
     const {randomMovie, imageUrl, searchQuery, setSearchQuery, handleSearch, isLoading} = useMainPage();
@@ -29,6 +31,14 @@ export const MainPage = () => {
                                       showViewMore={true}
                 />
                 <TopRatedMovies title="Top Rated Movies"
+                                limit={6}
+                                showViewMore={true}
+                />
+                <UpcomingMovies title="Upcoming Movies"
+                                limit={6}
+                                showViewMore={true}
+                />
+                <NowPlayingMovies title="Now Playing Movies"
                                 limit={6}
                                 showViewMore={true}
                 />

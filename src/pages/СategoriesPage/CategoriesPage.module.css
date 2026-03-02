@@ -2,6 +2,7 @@
     padding: 40px 20px;
     max-width: 1186px;
     margin: 0 auto;
+    transition: color 0.3s ease;
 }
 
 .tabs {
@@ -11,43 +12,65 @@
     gap: 10px;
     margin-bottom: 40px;
     flex-wrap: wrap;
-    width: 100%;
 }
 
-.tab, .activeTab {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+/* Базовый стиль вкладки */
+.tab,
+.activeTab {
+    text-decoration: none;
     padding: 8px 18px;
     border-radius: 20px;
+    transition: all 0.3s ease;
     font-size: 14px;
     font-weight: 600;
-    text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s ease;
     border: none;
-    background-color: transparent;
-    color: #ffffff;
-    outline: none;
+    background: transparent;
+    color: inherit;
 }
 
-.tab:not(.activeTab):hover {
+/* ======================
+   АКТИВНАЯ ВКЛАДКА
+====================== */
+
+.activeTab {
+    color: #ffffff !important;
+    background-color: #01b4e4;
+    box-shadow: 0 4px 12px rgba(1, 180, 228, 0.3);
+}
+
+/* Hover активной */
+.activeTab:hover {
+    background-color: #90cea1;
+    color: #0d253f !important;
+}
+
+/* ======================
+   HOVER НЕАКТИВНЫХ
+====================== */
+
+/* Светлая тема */
+:global(.light) .tab:not(.activeTab):hover {
+    background-color: rgba(1, 180, 228, 0.1);
+    color: #01b4e4;
+}
+
+/* Темная тема */
+:global(.dark) .tab:not(.activeTab):hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: #90cea1;
 }
 
-.activeTab {
-    background-color: #01b4e4;
-    color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(1, 180, 228, 0.3);
+/* Цвет текста по теме */
+:global(.light) .tab {
+    color: #0d253f;
 }
 
-.activeTab:hover {
-    background-color: #90cea1 !important;
-    color: #0d253f !important;
+:global(.dark) .tab {
+    color: #ffffff;
 }
 
 .content {
-    margin-top: 20px;
     width: 100%;
+    margin-top: 20px;
 }

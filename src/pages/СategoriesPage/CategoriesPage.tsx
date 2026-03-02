@@ -21,7 +21,19 @@ export const CategoriesPage = () => {
                     Top Rated Movies
                 </NavLink>
 
-                <button className={s.tab}>Upcoming Movies</button>
+                <NavLink
+                    to={`${Path.Categories}/${Path.UpcomingMovies}`}
+                    className={({ isActive }) => (isActive ? s.activeTab : s.tab)}
+                >
+                    Upcoming Movies
+                </NavLink>
+
+                <NavLink
+                    to={`${Path.Categories}/${Path.NowPlayingMovies}`}
+                    className={({ isActive }) => (isActive ? s.activeTab : s.tab)}
+                >
+                    Now Playing Movies
+                </NavLink>
             </nav>
 
             {/* Контентная область для списков фильмов */}

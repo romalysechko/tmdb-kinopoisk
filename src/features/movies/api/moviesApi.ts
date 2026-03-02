@@ -35,8 +35,24 @@ export const moviesApi = createApi({
                 },
             }),
         }),
+        upcomingMovies: build.query<MoviesResponse, number>({
+            query: (page = 1) => ({
+                url: 'movie/upcoming',
+                params: {
+                    page: page
+                },
+            }),
+        }),
+        nowPlayingMovies: build.query<MoviesResponse, number>({
+            query: (page = 1) => ({
+                url: 'movie/now_playing',
+                params: {
+                    page: page
+                },
+            }),
+        }),
     }),
 })
 
-export const { useFetchMoviesQuery, useSearchMoviesQuery, useTopRatedMoviesQuery } = moviesApi
+export const { useFetchMoviesQuery, useSearchMoviesQuery, useTopRatedMoviesQuery, useUpcomingMoviesQuery, useNowPlayingMoviesQuery } = moviesApi
 

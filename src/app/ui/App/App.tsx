@@ -4,6 +4,7 @@ import {CssBaseline, ThemeProvider} from "@mui/material";
 import {useSelector} from "react-redux";
 import {selectThemeMode} from "@/app/modal/app-slice.ts";
 import {createTheme} from "@mui/material/styles";
+import {useEffect} from "react";
 
 export const App = () => {
     const themeMode = useSelector(selectThemeMode);
@@ -14,6 +15,11 @@ export const App = () => {
             mode: themeMode,
         },
     });
+    useEffect(() => {
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(themeMode);
+    }, [themeMode]);
+
     return (
         <>
             <ThemeProvider theme={theme}>

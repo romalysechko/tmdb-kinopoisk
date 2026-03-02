@@ -8,6 +8,8 @@ import {PageNotFound} from "@/common/components/PageNotFound/PageNotFound.tsx";
 import {Path} from "@/app/routing/config/Path.ts";
 import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/PopularMoviesSection.tsx";
 import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/TopRatedMovies.tsx";
+import {UpcomingMovies} from "@/pages/СategoriesPage/MoviesSection/UpcomingMovies.tsx";
+import {NowPlayingMovies} from "@/pages/СategoriesPage/MoviesSection/NowPlayingMovies.tsx";
 export const Routing = () => (
     <Routes>
         <Route path={Path.Main} element={<MainPage />} />
@@ -15,6 +17,8 @@ export const Routing = () => (
             <Route index element={<Navigate to={Path.PopularMovies} replace />} />
             <Route path={Path.PopularMovies} element={<PopularMoviesSection isFullList={true}/>}/>
             <Route path={Path.TopRatedMovies} element={<TopRatedMovies isFullList={true}/>}/>
+            <Route path={Path.UpcomingMovies} element={<UpcomingMovies isFullList={true}/>}/>
+            <Route path={Path.NowPlayingMovies} element={<NowPlayingMovies isFullList={true}/>}/>
         </Route>
         <Route path={Path.FilteredMovies} element={<FilteredMoviesPage />} />
         <Route path={Path.Search} element={<SearchPage />} />
