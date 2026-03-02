@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 4rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Классы темы */
+.light {
+    background-color: #ffffff;
+    color: #0d253f; /* Используем глубокий синий вместо черного */
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dark {
+    background-color: #0d253f; /* Тёмная тема теперь в стиле TMDB */
+    color: #ffffff;
+    border-bottom: 1px solid #01b4e4;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.list {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    align-items: center;
+}
+
+.link {
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+    color: inherit;
+}
+
+/* --- СОСТОЯНИЕ АКТИВНОЙ ССЫЛКИ --- */
+.activeLink {
+    color: #ffffff !important;
+    background-color: #01b4e4; /* Наш яркий голубой */
+    box-shadow: 0 4px 12px rgba(1, 180, 228, 0.3);
+}
+
+/* --- ХОВЕРЫ ДЛЯ АКТИВНОЙ ССЫЛКИ (чтобы не было белого на белом) --- */
+.light .activeLink:hover {
+    background-color: #90cea1; /* Меняем на зеленый при наведении */
+    color: #0d253f !important; /* Текст становится темно-синим */
+}
+
+.dark .activeLink:hover {
+    background-color: #90cea1; /* Тоже зеленый */
+    color: #0d253f !important;
+}
+
+/* --- ХОВЕРЫ ДЛЯ ОБЫЧНЫХ ССЫЛОК --- */
+.light .link:not(.activeLink):hover {
+    background-color: rgba(1, 180, 228, 0.1);
+    color: #01b4e4;
+}
+
+.dark .link:not(.activeLink):hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #90cea1; /* Подсвечиваем зеленым в темной теме */
+}

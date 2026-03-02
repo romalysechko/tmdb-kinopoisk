@@ -1,0 +1,39 @@
+import s from "./MainPage.module.css";
+import {useMainPage} from "./useMainPage";
+import {MovieSearch} from "./MovieSearch";
+import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/PopularMoviesSection.tsx";
+import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/TopRatedMovies.tsx";
+
+export const MainPage = () => {
+    const {randomMovie, imageUrl, searchQuery, setSearchQuery, handleSearch, isLoading} = useMainPage();
+
+    if (isLoading || !randomMovie) return <div>Loading...</div>;
+
+    const heroStyle = {
+        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%), url(${imageUrl})`
+    };
+
+    return (
+        <>
+            <div className={s.hero} style={heroStyle}>
+                <MovieSearch
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                    onSearch={handleSearch}
+                />
+                <h1 className={s.title}>{randomMovie.title}</h1>
+            </div>
+            <div className={s.layout}>
+                <PopularMoviesSection title="Popular Movies"
+                                      limit={6}
+                                      showViewMore={true}
+                />
+                <TopRatedMovies title="Top Rated Movies"
+                                limit={6}
+                                showViewMore={true}
+                />
+            </div>
+        </>
+
+    );
+};
