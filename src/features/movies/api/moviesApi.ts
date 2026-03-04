@@ -19,7 +19,7 @@ export const moviesApi = createApi({
             query: (page = 1) => `movie/popular?page=${page}`
         }),
         searchMovies: build.query<MoviesResponse, { query: string }>({
-            query: ({ query }) => ({
+            query: ({query}) => ({
                 url: 'search/movie',
                 params: {
                     api_key: import.meta.env.VITE_API_KEY,
@@ -51,8 +51,22 @@ export const moviesApi = createApi({
                 },
             }),
         }),
+        fetchMovieDetails: build.query<any, string>({
+            query: (id) => `movie/${id}`
+        }),
+        fetchMovieCredits: build.query<any, string>({
+            query: (id) => `movie/${id}/credits`
+        }),
     }),
 })
 
-export const { useFetchMoviesQuery, useSearchMoviesQuery, useTopRatedMoviesQuery, useUpcomingMoviesQuery, useNowPlayingMoviesQuery } = moviesApi
+export const {
+    useFetchMoviesQuery,
+    useSearchMoviesQuery,
+    useTopRatedMoviesQuery,
+    useUpcomingMoviesQuery,
+    useNowPlayingMoviesQuery,
+    useFetchMovieDetailsQuery,
+    useFetchMovieCreditsQuery
+} = moviesApi
 

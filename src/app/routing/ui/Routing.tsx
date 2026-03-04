@@ -10,9 +10,11 @@ import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/Popula
 import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/TopRatedMovies.tsx";
 import {UpcomingMovies} from "@/pages/СategoriesPage/MoviesSection/UpcomingMovies.tsx";
 import {NowPlayingMovies} from "@/pages/СategoriesPage/MoviesSection/NowPlayingMovies.tsx";
+import {MovieDetailPage} from "@/pages/СategoriesPage/MoviesSection/MovieDetailPage/MovieDetailPage.tsx";
 export const Routing = () => (
     <Routes>
         <Route path={Path.Main} element={<MainPage />} />
+        <Route path={Path.MovieDetail} element={<MovieDetailPage />} />
         <Route path={Path.Categories} element={<CategoriesPage />} >
             <Route index element={<Navigate to={Path.PopularMovies} replace />} />
             <Route path={Path.PopularMovies} element={<PopularMoviesSection isFullList={true}/>}/>

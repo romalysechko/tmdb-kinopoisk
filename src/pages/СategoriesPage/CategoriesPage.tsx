@@ -5,7 +5,6 @@ import s from './CategoriesPage.module.css';
 export const CategoriesPage = () => {
     return (
         <div className={s.container}>
-            {/* Навигация по категориям (Вкладки) */}
             <nav className={s.tabs}>
                 <NavLink
                     to={`${Path.Categories}/${Path.PopularMovies}`}
@@ -36,7 +35,6 @@ export const CategoriesPage = () => {
                 </NavLink>
             </nav>
 
-            {/* Контентная область для списков фильмов */}
             <div className={s.content}>
                 <Outlet />
             </div>

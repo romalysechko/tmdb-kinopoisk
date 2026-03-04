@@ -1,5 +1,6 @@
 export const Path = {
     Main: '/',
+    MovieDetail: '/movies/:id',
     Categories: '/categories',
     PopularMovies:'popular-movies',
     TopRatedMovies:'top-movies',
