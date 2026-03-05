@@ -1,10 +1,11 @@
 import {Header} from "@/common/components/Header/Header.tsx";
 import {Routing} from "@/app/routing/ui/Routing.tsx";
-import {CssBaseline, ThemeProvider} from "@mui/material";
+import {Box, CssBaseline, ThemeProvider} from "@mui/material";
 import {useSelector} from "react-redux";
 import {selectThemeMode} from "@/app/modal/app-slice.ts";
 import {createTheme} from "@mui/material/styles";
 import {useEffect} from "react";
+import {Footer} from "@/common/components/Footer/Footer.tsx";
 
 export const App = () => {
     const themeMode = useSelector(selectThemeMode);
@@ -21,12 +22,16 @@ export const App = () => {
     }, [themeMode]);
 
     return (
-        <>
-            <ThemeProvider theme={theme}>
-                <CssBaseline/>
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
                 <Header/>
-                <Routing/>
-            </ThemeProvider>
-        </>
+                <Box component="main" sx={{flexGrow: 1}}>
+                    <Routing/>
+                </Box>
+
+                <Footer/>
+            </Box>
+        </ThemeProvider>
     )
 }

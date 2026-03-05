@@ -6,11 +6,11 @@ import {SearchPage} from "@/pages/Search/SearchPage.tsx";
 import {FavoritesPage} from "@/pages/Favorites/FavoritesPage.tsx";
 import {PageNotFound} from "@/common/components/PageNotFound/PageNotFound.tsx";
 import {Path} from "@/app/routing/config/Path.ts";
-import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/PopularMoviesSection.tsx";
-import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/TopRatedMovies.tsx";
-import {UpcomingMovies} from "@/pages/СategoriesPage/MoviesSection/UpcomingMovies.tsx";
-import {NowPlayingMovies} from "@/pages/СategoriesPage/MoviesSection/NowPlayingMovies.tsx";
-import {MovieDetailPage} from "@/pages/СategoriesPage/MoviesSection/MovieDetailPage/MovieDetailPage.tsx";
+import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/containers/PopularMoviesSection.tsx";
+import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/containers/TopRatedMovies.tsx";
+import {UpcomingMovies} from "@/pages/СategoriesPage/MoviesSection/containers/UpcomingMovies.tsx";
+import {NowPlayingMovies} from "@/pages/СategoriesPage/MoviesSection/containers/NowPlayingMovies.tsx";
+import {MovieDetailPage} from "@/pages/СategoriesPage/MoviesSection/components/MovieDetailPage/MovieDetailPage.tsx";
 export const Routing = () => (
     <Routes>
         <Route path={Path.Main} element={<MainPage />} />

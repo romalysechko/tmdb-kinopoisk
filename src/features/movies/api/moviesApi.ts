@@ -1,5 +1,11 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import type {MoviesResponse} from "@/features/movies/api/movieApiTypes.ts";
+import type {
+    DiscoverParams,
+    Movie,
+    MovieCredits,
+    MovieDetails,
+    MoviesResponse
+} from "@/features/movies/api/movieApiTypes.ts";
 
 
 export const moviesApi = createApi({
@@ -15,8 +21,17 @@ export const moviesApi = createApi({
         },
     }),
     endpoints: build => ({
-        fetchMovies: build.query<MoviesResponse, number>({
-            query: (page = 1) => `movie/popular?page=${page}`
+        fetchMovies: build.query<MoviesResponse & { randomMovie?: Movie }, number | void>({
+            query: (page = 1) => `movie/popular?page=${page}`,
+            transformResponse: (response: MoviesResponse) => {
+                const movies = response.results || [];
+                return {
+                    ...response,
+                    randomMovie: movies.length > 0
+                        ? movies[Math.floor(Math.random() * movies.length)]
+                        : undefined
+                };
+            }
         }),
         searchMovies: build.query<MoviesResponse, { query: string }>({
             query: ({query}) => ({
@@ -51,11 +66,21 @@ export const moviesApi = createApi({
                 },
             }),
         }),
-        fetchMovieDetails: build.query<any, string>({
+        fetchMovieDetails: build.query<MovieDetails, string>({
             query: (id) => `movie/${id}`
         }),
-        fetchMovieCredits: build.query<any, string>({
+        fetchMovieCredits: build.query<MovieCredits, string>({
             query: (id) => `movie/${id}/credits`
+        }),
+        fetchFilteredMovies: build.query<MoviesResponse, DiscoverParams>({
+            query: (params) => ({
+                url: 'discover/movie',
+                params: {
+                    ...params,
+                    page: params.page || 1,
+                    sort_by: params.sort_by || 'popularity.desc',
+                },
+            }),
         }),
     }),
 })
@@ -67,6 +92,7 @@ export const {
     useUpcomingMoviesQuery,
     useNowPlayingMoviesQuery,
     useFetchMovieDetailsQuery,
-    useFetchMovieCreditsQuery
+    useFetchMovieCreditsQuery,
+    useFetchFilteredMoviesQuery,
 } = moviesApi
 

@@ -1,6 +1,6 @@
 .container {
     padding: 40px 20px;
-    max-width: 1186px; /* Твоя стандартная ширина */
+    max-width: 1186px;
     margin: 0 auto;
     min-height: 80vh;
 }
@@ -9,23 +9,18 @@
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 40px;
-    /* Линия под заголовком в стиле TMDB */
     border-bottom: 3px solid #01b4e4;
     display: inline-block;
     padding-bottom: 8px;
 }
 
-/* ГЛАВНОЕ: Сетка, которая делает ряд, а не колонку */
 .grid {
     display: grid;
-    /* Создает колонки по ~180px. Если не влезают — переносит на новую строку */
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 30px; /* Расстояние между карточками */
+    gap: 30px;
     width: 100%;
-    justify-items: center; /* Центрирует карточки в своих ячейках */
+    justify-items: center;
 }
-
-/* Стиль для пустого состояния */
 .empty {
     display: flex;
     flex-direction: column;
@@ -38,6 +33,5 @@
     gap: 20px;
 }
 
-/* Адаптация под темы */
 :global(.light) .title { color: #0d253f; }
 :global(.dark) .title { color: #ffffff; }

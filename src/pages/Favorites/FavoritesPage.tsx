@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux';
 import s from './FavoritesPage.module.css';
-import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/MovieCard/MovieCard.tsx";
+import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard.tsx";
 import {selectFavorites} from "@/app/modal/app-slice.ts";
 
 export const FavoritesPage = () => {

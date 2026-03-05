@@ -1,12 +1,12 @@
 import {useNavigate} from 'react-router';
 import {Pagination, Stack} from "@mui/material";
-import s from './PopularMovies.module.css';
+import s from '../containers/PopularMovies.module.css';
 import type {MoviesResponse} from "@/features/movies/api/movieApiTypes.ts";
-import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/MovieCard/MovieCard.tsx";
+import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard.tsx";
 
 interface MovieSectionProps {
     title: string;
-    data: MoviesResponse;
+    data?: MoviesResponse;
     isLoading: boolean;
     isError: boolean;
     isFullList?: boolean;
@@ -42,6 +42,9 @@ export const MovieSection = ({
             <div className={s.header}>
                 <h2 className={s.title}>{title}</h2>
                 {showViewMore && viewMorePath && (
+                    // <Button component={Link} to={viewMorePath}>
+                    //     Смотреть все
+                    // </Button>
                     <button className={s.viewMoreBtn} onClick={() => navigate(viewMorePath)}>
                         View More
                     </button>

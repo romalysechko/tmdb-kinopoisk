@@ -19,8 +19,6 @@ interface MovieCardProps {
 export const MovieCard = ({ id, title, poster, rating }: MovieCardProps) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    // 1. УБРАЛИ useState. Теперь всё берем ТОЛЬКО из Redux
     const isFavorite = useSelector((state: RootState) => selectIsFavorite(state, id));
 
     const getRatingClass = (vote: number) => {
@@ -35,7 +33,6 @@ export const MovieCard = ({ id, title, poster, rating }: MovieCardProps) => {
 
     const toggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // 2. Отправляем объект фильма в Redux
         dispatch(toggleFavoriteAC({
             movie: {
                 id,
@@ -69,7 +66,6 @@ export const MovieCard = ({ id, title, poster, rating }: MovieCardProps) => {
                             transform: 'scale(1.2)',
                             backgroundColor: 'rgba(0, 0, 0, 0.7) !important',
                         },
-                        // Чтобы иконка не дергалась при наведении
                         transition: 'all 0.2s ease'
                     }}
                 >

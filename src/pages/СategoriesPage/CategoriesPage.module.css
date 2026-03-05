@@ -14,7 +14,6 @@
     flex-wrap: wrap;
 }
 
-/* Базовый стиль вкладки */
 .tab,
 .activeTab {
     text-decoration: none;
@@ -29,39 +28,27 @@
     color: inherit;
 }
 
-/* ======================
-   АКТИВНАЯ ВКЛАДКА
-====================== */
-
 .activeTab {
     color: #ffffff !important;
     background-color: #01b4e4;
     box-shadow: 0 4px 12px rgba(1, 180, 228, 0.3);
 }
 
-/* Hover активной */
 .activeTab:hover {
     background-color: #90cea1;
     color: #0d253f !important;
 }
 
-/* ======================
-   HOVER НЕАКТИВНЫХ
-====================== */
-
-/* Светлая тема */
 :global(.light) .tab:not(.activeTab):hover {
     background-color: rgba(1, 180, 228, 0.1);
     color: #01b4e4;
 }
 
-/* Темная тема */
 :global(.dark) .tab:not(.activeTab):hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: #90cea1;
 }
 
-/* Цвет текста по теме */
 :global(.light) .tab {
     color: #0d253f;
 }

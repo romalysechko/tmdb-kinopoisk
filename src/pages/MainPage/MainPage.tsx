@@ -1,10 +1,10 @@
 import s from "./MainPage.module.css";
 import {useMainPage} from "./useMainPage";
 import {MovieSearch} from "./MovieSearch";
-import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/PopularMoviesSection.tsx";
-import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/TopRatedMovies.tsx";
-import {UpcomingMovies} from "@/pages/СategoriesPage/MoviesSection/UpcomingMovies.tsx";
-import {NowPlayingMovies} from "@/pages/СategoriesPage/MoviesSection/NowPlayingMovies.tsx";
+import {PopularMoviesSection} from "@/pages/СategoriesPage/MoviesSection/containers/PopularMoviesSection.tsx";
+import {TopRatedMovies} from "@/pages/СategoriesPage/MoviesSection/containers/TopRatedMovies.tsx";
+import {UpcomingMovies} from "@/pages/СategoriesPage/MoviesSection/containers/UpcomingMovies.tsx";
+import {NowPlayingMovies} from "@/pages/СategoriesPage/MoviesSection/containers/NowPlayingMovies.tsx";
 
 export const MainPage = () => {
     const {randomMovie, imageUrl, searchQuery, setSearchQuery, handleSearch, isLoading} = useMainPage();
