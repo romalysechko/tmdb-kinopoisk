@@ -17,10 +17,8 @@ export const FavoritesPage = () => {
                     {favorites.map(movie => (
                         <MovieCard
                             key={movie.id}
-                            id={movie.id}
-                            title={movie.title}
-                            poster={movie.poster_path}
-                            rating={movie.vote_average}
+                            movie={movie}
+                            isFavorite={favorites.some(fav => fav.id === movie.id)}
                         />
                     ))}
                 </div>

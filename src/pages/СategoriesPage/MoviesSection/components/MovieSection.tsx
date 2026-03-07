@@ -3,6 +3,8 @@ import {Pagination, Stack} from "@mui/material";
 import s from '../containers/PopularMovies.module.css';
 import type {MoviesResponse} from "@/features/movies/api/movieApiTypes.ts";
 import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard.tsx";
+import {useSelector} from "react-redux";
+import {selectFavorites} from "@/app/modal/app-slice.ts";
 
 interface MovieSectionProps {
     title: string;
@@ -30,6 +32,7 @@ export const MovieSection = ({
                                  currentPage = 1
                              }: MovieSectionProps) => {
     const navigate = useNavigate();
+    const favorites = useSelector(selectFavorites);
 
     if (isLoading) return <div>Loading {title}...</div>;
     if (isError) return <div>Error loading movies.</div>;
@@ -42,9 +45,6 @@ export const MovieSection = ({
             <div className={s.header}>
                 <h2 className={s.title}>{title}</h2>
                 {showViewMore && viewMorePath && (
-                    // <Button component={Link} to={viewMorePath}>
-                    //     Смотреть все
-                    // </Button>
                     <button className={s.viewMoreBtn} onClick={() => navigate(viewMorePath)}>
                         View More
                     </button>
@@ -54,10 +54,9 @@ export const MovieSection = ({
             <div className={s.grid}>
                 {movies?.map((movie) => (
                     <MovieCard key={movie.id}
-                               id={movie.id}
-                               title={movie.title}
-                               poster={movie.poster_path}
-                               rating={movie.vote_average} />
+                               movie={movie}
+                               isFavorite={favorites.some(fav => fav.id === movie.id)}
+                    />
                 ))}
             </div>
 

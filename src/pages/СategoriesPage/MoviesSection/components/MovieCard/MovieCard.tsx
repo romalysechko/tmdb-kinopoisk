@@ -1,78 +1,75 @@
-import { useNavigate } from "react-router";
-import { IconButton } from "@mui/material";
+import { Box, Card, CardMedia, IconButton, Typography } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import s from './MovieCard.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@/app/modal/store.ts";
-import { selectIsFavorite, toggleFavoriteAC } from "@/app/modal/app-slice.ts";
+import { useDispatch } from "react-redux";
+import { toggleFavoriteAC } from "@/app/modal/app-slice";
+import {
+    badgeStyles,
+    cardStyles,
+    favoriteBtnStyles,
+    imageWrapperStyles,
+    titleClampStyles
+} from "./movieCard.styles.ts";
+import type { Movie, FavoriteMovie } from "@/features/movies/api/movieApiTypes";
+import {useNavigate} from "react-router";
 
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+type Props = {
+    movie: Movie;
+    isFavorite?: boolean;
+};
 
-interface MovieCardProps {
-    id: number;
-    title: string;
-    poster: string | null;
-    rating: number;
-}
-
-export const MovieCard = ({ id, title, poster, rating }: MovieCardProps) => {
-    const navigate = useNavigate();
+export const MovieCard = ({ movie, isFavorite = false }: Props) => {
     const dispatch = useDispatch();
-    const isFavorite = useSelector((state: RootState) => selectIsFavorite(state, id));
+    const navigate = useNavigate();
 
-    const getRatingClass = (vote: number) => {
-        if (vote >= 7) return s.high;
-        if (vote >= 5) return s.medium;
-        return s.low;
+    if (!movie) return null;
+
+    const handleCardClick = () => {
+        navigate(`/movies/${movie.id}`);
     };
-
-    const handleNavigate = () => {
-        navigate(`/movies/${id}`);
-    };
-
-    const toggleFavorite = (e: React.MouseEvent) => {
+    const handleFavoriteClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+
         dispatch(toggleFavoriteAC({
-            movie: {
-                id,
-                title,
-                poster_path: poster,
-                vote_average: rating
-            }
+            movie: movie as unknown as FavoriteMovie
         }));
     };
 
     return (
-        <div className={s.card} onClick={handleNavigate}>
-            <div className={s.imageWrapper}>
-                <img
-                    src={poster ? `${IMAGE_BASE_URL}${poster}` : 'https://placehold.co'}
-                    alt={title}
-                    className={s.poster}
+        <Card elevation={0} sx={cardStyles} onClick={handleCardClick}>
+            <Box sx={imageWrapperStyles}>
+                <CardMedia
+                    component="img"
+                    image={
+                        movie.poster_path
+                            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                            : "https://via.placeholder.com"
+                    }
+                    alt={movie.title}
+                    sx={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
 
-                <div className={`${s.badge} ${getRatingClass(rating)}`}>
-                    {rating.toFixed(1)}
-                </div>
-
                 <IconButton
-                    onClick={toggleFavorite}
-                    className={s.favoriteBtn}
-                    sx={{
-                        color: isFavorite ? '#ef476f' : '#ffffff',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5) !important',
-                        '&:hover': {
-                            transform: 'scale(1.2)',
-                            backgroundColor: 'rgba(0, 0, 0, 0.7) !important',
-                        },
-                        transition: 'all 0.2s ease'
-                    }}
+                    size="small"
+                    className={`favorite-btn ${isFavorite ? 'is-favorite' : ''}`}
+                    sx={favoriteBtnStyles}
+                    onClick={handleFavoriteClick}
                 >
-                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    {isFavorite ? (
+                        <FavoriteIcon fontSize="small" sx={{ color: '#db2360' }} />
+                    ) : (
+                        <FavoriteBorderIcon fontSize="small" />
+                    )}
                 </IconButton>
-            </div>
-            <h3 className={s.movieTitle}>{title}</h3>
-        </div>
+
+                <Box sx={badgeStyles(movie.vote_average ?? 0)}>
+                    {movie.vote_average?.toFixed(1) ?? "0.0"}
+                </Box>
+            </Box>
+
+            <Typography variant="subtitle2" sx={titleClampStyles}>
+                {movie.title}
+            </Typography>
+        </Card>
     );
 };
