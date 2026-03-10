@@ -1,5 +1,6 @@
 import { Box, TextField, Button } from "@mui/material";
 import s from "./MainPage.module.css";
+import type {ChangeEvent,KeyboardEvent} from "react";
 
 interface Props {
     value: string;
@@ -11,11 +12,12 @@ export const MovieSearch = ({ value, onChange, onSearch }: Props) => (
     <Box className={s.searchContainer}>
         <TextField
             fullWidth
+            type="search"
             variant="standard"
             placeholder="Search movies..."
             value={value}
-            onChange={(e) => onChange(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && onSearch()}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+            onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => e.key === 'Enter' && onSearch()}
             className={s.searchInput}
             slotProps={{ input: { disableUnderline: true } }}
         />

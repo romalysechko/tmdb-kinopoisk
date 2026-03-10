@@ -1,46 +1,100 @@
-import s from './SearchPage.module.css';
-import {useSearchPage} from './useSearchPage';
-import {MovieSearch} from "@/pages/MainPage/MovieSearch.tsx";
-import {useMainPage} from "@/pages/MainPage/useMainPage.ts";
-
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+import { useEffect } from "react";
+import { Box, Typography, Container, Alert, Skeleton, Pagination } from "@mui/material";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router"; // ВАЖНО: используем для навигации
+import { selectFavorites } from "@/app/modal/app-slice";
+import { MovieCard } from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard";
+import { MovieSearch } from "@/pages/MainPage/MovieSearch.tsx";
+import { useSearchPage } from "./useSearchPage";
+import { useMainPage } from "@/pages/MainPage/useMainPage.ts";
+import type { Movie } from "@/features/movies/api/movieApiTypes.ts";
+import { Path } from "@/app/routing/config/Path.ts";
 
 export const SearchPage = () => {
-    const { query, movies, isError } = useSearchPage();
-    const {searchQuery, setSearchQuery, handleSearch, isLoading } = useMainPage();
+    const navigate = useNavigate();
+    const { query, movies, isError, isLoading, totalPages, page } = useSearchPage();
+    const { searchQuery, setSearchQuery, handleSearch } = useMainPage();
+    const favorites = useSelector(selectFavorites);
 
-    if (isLoading) return <div className={s.container}>Searching...</div>;
-    if (isError) return <div className={s.container}>Error occurred while searching.</div>;
+    useEffect(() => {
+        setSearchQuery(query || '');
+    }, [query, setSearchQuery]);
+
+    const handleInputChange = (val: string) => {
+        setSearchQuery(val);
+
+        if (val === '') {
+            navigate(Path.Search, { replace: true });
+        }
+    };
+
+    const handlePageChange = (_: unknown, value: number) => {
+        navigate(`${Path.Search}?query=${encodeURIComponent(query)}&page=${value}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    if (isError) return <Container sx={{ py: 4 }}><Alert severity="error">Ошибка поиска</Alert></Container>;
 
     return (
-        <div className={s.container}>
-            <MovieSearch value={searchQuery}
-                         onChange={setSearchQuery}
-                         onSearch={handleSearch} />
-            <h2 className={s.heading}>
-                {query ? `Results for "${query}"` : 'Type something to search'}
-            </h2>
+        <Container maxWidth="xl" sx={{ py: 4, minHeight: '100vh' }}>
+            <Box sx={{ mb: 6, display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{ width: '100%', maxWidth: 800 }}>
+                    <MovieSearch
+                        value={searchQuery}
+                        onChange={handleInputChange}
+                        onSearch={handleSearch}
+                    />
+                </Box>
+            </Box>
 
-            {movies.length === 0 && !isLoading && query && (
-                <p>No movies found for your request.</p>
+            <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
+                {query ? `Результаты по запросу: "${query}"` : 'Введите название для поиска'}
+            </Typography>
+
+            {isLoading ? (
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 3 }}>
+                    {Array.from(new Array(8)).map((_, i) => (
+                        <Skeleton key={i} variant="rounded" sx={{ aspectRatio: '2/3', borderRadius: 2 }} />
+                    ))}
+                </Box>
+            ) : (
+                <>
+                    {query && movies.length > 0 && (
+                        <Box sx={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                            gap: 3
+                        }}>
+                            {movies.map((movie: Movie) => (
+                                <MovieCard
+                                    key={movie.id}
+                                    movie={movie}
+                                    isFavorite={favorites.some(fav => fav.id === movie.id)}
+                                />
+                            ))}
+                        </Box>
+                    )}
+
+                    {query && movies.length === 0 && (
+                        <Typography variant="h6" color="text.secondary" sx={{ textAlign: 'center', mt: 4 }}>
+                            По вашему запросу ничего не найдено.
+                        </Typography>
+                    )}
+                </>
             )}
 
-            <div className={s.grid}>
-                {movies.map(movie => (
-                    <div key={movie.id} className={s.card}>
-                        {movie.poster_path ? (
-                            <img
-                                src={`${IMAGE_BASE_URL}${movie.poster_path}`}
-                                alt={movie.title}
-                                className={s.poster}
-                            />
-                        ) : (
-                            <div className={s.posterFallback}>NO POSTER</div>
-                        )}
-                        <p className={s.movieTitle}>{movie.title}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
+            {/* Пагинация */}
+            {!isLoading && totalPages > 1 && query && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
+                    <Pagination
+                        count={Math.min(totalPages, 500)}
+                        page={page}
+                        onChange={handlePageChange}
+                        color="primary"
+                        size="large"
+                    />
+                </Box>
+            )}
+        </Container>
     );
 };

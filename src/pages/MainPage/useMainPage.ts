@@ -8,19 +8,18 @@ export const useMainPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
-    const randomMovie = data?.randomMovie || null;
-
-    const imagePath = randomMovie?.backdrop_path || randomMovie?.poster_path;
-
-    const imageUrl = imagePath
-        ? `https://image.tmdb.org/t/p/w1280${imagePath}`
-        : null;
-
     const handleSearch = () => {
-        if (searchQuery.trim()) {
-            navigate(`${Path.Search}?query=${encodeURIComponent(searchQuery.trim())}`);
+        const trimmedQuery = searchQuery.trim();
+        if (trimmedQuery) {
+            navigate(`${Path.Search}?query=${encodeURIComponent(trimmedQuery)}`);
+        } else {
+            navigate(Path.Search);
         }
     };
+
+    const randomMovie = data?.randomMovie || null;
+    const imagePath = randomMovie?.backdrop_path || randomMovie?.poster_path;
+    const imageUrl = imagePath ? `https://image.tmdb.org/t/p/w1280${imagePath}` : null;
 
     return {
         randomMovie,

@@ -33,12 +33,12 @@ export const moviesApi = createApi({
                 };
             }
         }),
-        searchMovies: build.query<MoviesResponse, { query: string }>({
-            query: ({query}) => ({
+        searchMovies: build.query<MoviesResponse, { query: string; page?: number }>({
+            query: ({ query, page = 1 }) => ({
                 url: 'search/movie',
                 params: {
-                    api_key: import.meta.env.VITE_API_KEY,
                     query: query,
+                    page: page,
                 },
             }),
         }),
@@ -82,6 +82,9 @@ export const moviesApi = createApi({
                 },
             }),
         }),
+        fetchGenres: build.query<{ genres: { id: number; name: string }[] }, void>({
+            query: () => 'genre/movie/list',
+        }),
     }),
 })
 
@@ -94,5 +97,6 @@ export const {
     useFetchMovieDetailsQuery,
     useFetchMovieCreditsQuery,
     useFetchFilteredMoviesQuery,
+    useFetchGenresQuery,
 } = moviesApi
 
