@@ -35,6 +35,7 @@ export interface MovieDetails {
     vote_average: number;
     release_date: string;
     genres: Genre[];
+    runtime?: number;
 }
 
 export interface CastMember {

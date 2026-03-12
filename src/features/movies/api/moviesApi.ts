@@ -85,6 +85,9 @@ export const moviesApi = createApi({
         fetchGenres: build.query<{ genres: { id: number; name: string }[] }, void>({
             query: () => 'genre/movie/list',
         }),
+        fetchSimilarMovies: build.query<MoviesResponse, string>({
+            query: (movieId) => `movie/${movieId}/similar`,
+        }),
     }),
 })
 
@@ -98,5 +101,6 @@ export const {
     useFetchMovieCreditsQuery,
     useFetchFilteredMoviesQuery,
     useFetchGenresQuery,
+    useFetchSimilarMoviesQuery,
 } = moviesApi
 
