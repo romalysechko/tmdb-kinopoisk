@@ -62,7 +62,6 @@ export const favoriteBtnStyles: SxProps<Theme> = {
     "&:hover": {
         backgroundColor: "rgba(0,0,0,0.5)",
     },
-    // Селектор для того, чтобы кнопка была видна, если фильм уже в избранном
     "&.is-favorite": {
         opacity: 1,
         visibility: "visible",

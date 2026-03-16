@@ -5,6 +5,7 @@ import type {MoviesResponse} from "@/features/movies/api/movieApiTypes.ts";
 import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard.tsx";
 import {useSelector} from "react-redux";
 import {selectFavorites} from "@/app/modal/app-slice.ts";
+import {MovieSkeleton} from "@/common/components/MovieSkeleton/MovieSkeleton.tsx";
 
 interface MovieSectionProps {
     title: string;
@@ -34,8 +35,10 @@ export const MovieSection = ({
     const navigate = useNavigate();
     const favorites = useSelector(selectFavorites);
 
-    if (isLoading) return <div>Loading {title}...</div>;
     if (isError) return <div>Error loading movies.</div>;
+
+    const skeletonCount = isFullList ? 12 : limit;
+
 
     const allMovies = data?.results || [];
     const movies = isFullList ? allMovies : allMovies.slice(0, limit);
@@ -52,12 +55,18 @@ export const MovieSection = ({
             </div>
 
             <div className={s.grid}>
-                {movies?.map((movie) => (
-                    <MovieCard key={movie.id}
-                               movie={movie}
-                               isFavorite={favorites.some(fav => fav.id === movie.id)}
-                    />
-                ))}
+                {isLoading
+                    ? Array.from(new Array(skeletonCount)).map((_, i) => (
+                        <MovieSkeleton key={i} />
+                    ))
+                    : movies.map((movie) => (
+                        <MovieCard
+                            key={movie.id}
+                            movie={movie}
+                            isFavorite={favorites.some(fav => fav.id === movie.id)}
+                        />
+                    ))
+                }
             </div>
 
             {isFullList && data && data.total_pages > 1 && (

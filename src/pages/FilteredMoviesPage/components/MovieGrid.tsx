@@ -1,6 +1,7 @@
-import { Box, Skeleton, Alert } from "@mui/material";
-import { MovieCard } from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard.tsx";
+import {Alert, Box} from "@mui/material";
+import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard.tsx";
 import type {Movie} from "@/features/movies/api/movieApiTypes.ts";
+import {MovieSkeleton} from "@/common/components/MovieSkeleton/MovieSkeleton.tsx";
 
 interface Props {
     movies?: Movie[];
@@ -23,7 +24,7 @@ export const MovieGrid = ({ movies, isLoading, isFetching, isError, favorites }:
         }}>
             {isLoading
                 ? Array.from(new Array(10)).map((_, i) => (
-                    <Skeleton key={i} variant="rectangular" sx={{ aspectRatio: '2/3', borderRadius: 2 }} />
+                    <MovieSkeleton key={i}/>
                 ))
                 : movies?.map(movie => (
                     <MovieCard

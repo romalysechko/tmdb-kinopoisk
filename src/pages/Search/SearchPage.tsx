@@ -1,18 +1,18 @@
-import { useEffect } from "react";
-import { Box, Typography, Container, Alert, Skeleton, Pagination } from "@mui/material";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router"; // ВАЖНО: используем для навигации
-import { selectFavorites } from "@/app/modal/app-slice";
-import { MovieCard } from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard";
-import { MovieSearch } from "@/pages/MainPage/MovieSearch.tsx";
-import { useSearchPage } from "./useSearchPage";
-import { useMainPage } from "@/pages/MainPage/useMainPage.ts";
-import type { Movie } from "@/features/movies/api/movieApiTypes.ts";
-import { Path } from "@/app/routing/config/Path.ts";
+import {useEffect} from "react";
+import {Box, Container, Pagination, Skeleton, Typography} from "@mui/material";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router";
+import {selectFavorites} from "@/app/modal/app-slice";
+import {MovieCard} from "@/pages/СategoriesPage/MoviesSection/components/MovieCard/MovieCard";
+import {MovieSearch} from "@/pages/MainPage/MovieSearch.tsx";
+import {useSearchPage} from "./useSearchPage";
+import {useMainPage} from "@/pages/MainPage/useMainPage.ts";
+import type {Movie} from "@/features/movies/api/movieApiTypes.ts";
+import {Path} from "@/app/routing/config/Path.ts";
 
 export const SearchPage = () => {
     const navigate = useNavigate();
-    const { query, movies, isError, isLoading, totalPages, page } = useSearchPage();
+    const { query, movies, isLoading, totalPages, page } = useSearchPage();
     const { searchQuery, setSearchQuery, handleSearch } = useMainPage();
     const favorites = useSelector(selectFavorites);
 
@@ -32,8 +32,6 @@ export const SearchPage = () => {
         navigate(`${Path.Search}?query=${encodeURIComponent(query)}&page=${value}`);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-
-    if (isError) return <Container sx={{ py: 4 }}><Alert severity="error">Ошибка поиска</Alert></Container>;
 
     return (
         <Container maxWidth="xl" sx={{ py: 4, minHeight: '100vh' }}>

@@ -1,12 +1,11 @@
-import {Box, Skeleton} from "@mui/material";
+import { Box, Skeleton } from '@mui/material';
 
 export const MovieSkeleton = () => (
-    <Box>
+    <Box sx={{ width: '100%', maxWidth: 200 }}>
         <Skeleton
-            variant="rectangular"
-            sx={{ aspectRatio: "2/3", borderRadius: 2 }}
+            variant="rounded"
+            sx={{ width: '100%', height: 250, borderRadius: 2, mb: 1 }}
         />
-        <Skeleton sx={{ mt: 1 }} />
-        <Skeleton width="60%" />
+        <Skeleton variant="text" width="40%" height={20} />
     </Box>
 );

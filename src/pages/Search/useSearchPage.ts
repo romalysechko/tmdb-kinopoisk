@@ -6,7 +6,7 @@ export const useSearchPage = () => {
     const query = searchParams.get('query') || '';
     const page = Number(searchParams.get('page')) || 1;
 
-    const { data, isLoading, isError, isFetching } = useSearchMoviesQuery(
+    const { data, isLoading, isFetching } = useSearchMoviesQuery(
         { query, page },
         { skip: !query }
     );
@@ -17,6 +17,5 @@ export const useSearchPage = () => {
         totalPages: data?.total_pages || 0,
         movies: data?.results || [],
         isLoading: isLoading || isFetching,
-        isError
     };
 };
