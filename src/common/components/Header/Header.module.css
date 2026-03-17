@@ -4,17 +4,18 @@
     justify-content: space-between;
     padding: 0.8rem 4rem;
     transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 60px;
+    box-sizing: border-box;
 }
 
-/* Классы темы */
 .light {
     background-color: #ffffff;
-    color: #0d253f; /* Используем глубокий синий вместо черного */
+    color: #0d253f;
     border-bottom: 1px solid #e0e0e0;
 }
 
 .dark {
-    background-color: #0d253f; /* Тёмная тема теперь в стиле TMDB */
+    background-color: #0d253f;
     color: #ffffff;
     border-bottom: 1px solid #01b4e4;
 }
@@ -27,10 +28,11 @@
     color: inherit;
     font-weight: bold;
     font-size: 1.5rem;
+    flex-shrink: 0;
 }
 
 .logo img {
-    height: 50px;
+    height: 40px;
 }
 
 .list {
@@ -38,6 +40,8 @@
     gap: 10px;
     list-style: none;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 .link {
@@ -48,27 +52,20 @@
     font-size: 14px;
     font-weight: 600;
     color: inherit;
+    white-space: nowrap;
 }
 
-/* --- СОСТОЯНИЕ АКТИВНОЙ ССЫЛКИ --- */
 .activeLink {
     color: #ffffff !important;
-    background-color: #01b4e4; /* Наш яркий голубой */
+    background-color: #01b4e4;
     box-shadow: 0 4px 12px rgba(1, 180, 228, 0.3);
 }
 
-/* --- ХОВЕРЫ ДЛЯ АКТИВНОЙ ССЫЛКИ (чтобы не было белого на белом) --- */
-.light .activeLink:hover {
-    background-color: #90cea1; /* Меняем на зеленый при наведении */
-    color: #0d253f !important; /* Текст становится темно-синим */
-}
-
-.dark .activeLink:hover {
-    background-color: #90cea1; /* Тоже зеленый */
+.light .activeLink:hover, .dark .activeLink:hover {
+    background-color: #90cea1;
     color: #0d253f !important;
 }
 
-/* --- ХОВЕРЫ ДЛЯ ОБЫЧНЫХ ССЫЛОК --- */
 .light .link:not(.activeLink):hover {
     background-color: rgba(1, 180, 228, 0.1);
     color: #01b4e4;
@@ -76,5 +73,37 @@
 
 .dark .link:not(.activeLink):hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: #90cea1; /* Подсвечиваем зеленым в темной теме */
+    color: #90cea1;
+}
+
+/* --- АДАПТИВНОСТЬ ДЛЯ МОБИЛОК --- */
+
+@media (max-width: 900px) {
+    .container {
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 1rem;
+    }
+
+    .list {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .link {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .logo img {
+        height: 35px;
+    }
 }

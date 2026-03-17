@@ -1,29 +1,50 @@
-.layout {
-    max-width: 1186px;
-    margin: 0 auto;
+*, *::before, *::after {
+    box-sizing: border-box;
 }
+
+/* 2. Базовый контейнер */
+.layout {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.movieGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-top: 30px;
+}
+/* 4. Главный блок (Hero) */
 .hero {
     width: 100%;
-    height: 90vh;
+    min-height: 70vh;
     background-size: cover;
     background-position: center;
     display: flex;
     flex-direction: column;
     padding: 40px;
     color: white;
-    box-sizing: border-box;
+    transition: all 0.3s ease;
+    border-radius: 20px;
 }
 
 .title {
     margin-top: auto;
-    font-size:2rem;
+    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 700;
     text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
+/* 5. Поиск */
 .searchContainer {
     display: flex;
     gap: 8px;
     width: 100%;
+    max-width: 1000px;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 6px;
     border-radius: 50px;
@@ -33,33 +54,51 @@
 
 .searchInput {
     flex-grow: 1;
-    display: flex;
-    align-items: center;
 }
 
 .searchInput input {
+    width: 100%;
+    background: transparent !important;
+    border: none !important;
     color: white !important;
-    padding: 0 20px !important;
-    font-size: 16px;
-    height: 40px;
-    box-sizing: border-box;
+    padding: 0 25px !important;
+    font-size: 18px;
+    height: 46px;
 }
 
 .searchButton {
     background-color: #01b4e4 !important;
     color: white !important;
     border-radius: 50px !important;
-    padding: 10px 30px !important;
-    text-transform: none !important;
+    padding: 10px 35px !important;
     font-weight: bold !important;
+    white-space: nowrap;
 }
 
-.searchButton:hover {
-    background-color: #90cea1 !important;
-    color: #0d253f !important;
+@media (max-width: 1100px) {
+    .movieGrid {
+        grid-template-columns: repeat(4, 1fr); /* Планшет: 4 колонки */
+    }
+    .title { font-size: 2.5rem; }
 }
 
-.searchButton:disabled {
-    background-color: rgba(255,255,255,0.1) !important;
-    color: rgba(255,255,255,0.3) !important;
+@media (max-width: 768px) {
+    .movieGrid {
+        grid-template-columns: repeat(3, 1fr); /* Маленький планшет: 3 колонки */
+    }
+    .hero { padding: 20px; min-height: 450px; }
+}
+
+@media (max-width: 480px) {
+    .movieGrid {
+        grid-template-columns: repeat(2, 1fr); /* Мобильные: 2 колонки */
+        gap: 12px;
+    }
+    .searchContainer {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 10px;
+    }
+    .searchButton { width: 100%; }
+    .title { font-size: 1.8rem; text-align: center; }
 }

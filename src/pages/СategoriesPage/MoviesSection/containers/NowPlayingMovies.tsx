@@ -30,7 +30,7 @@ export const NowPlayingMovies = ({
             isError={isMoviesError}
             currentPage={page}
             onPageChange={setPage}
-            isFullList={isFullList && !isFullList}
+            isFullList={isFullList}
             showViewMore={showViewMore}
             viewMorePath={`${Path.Categories}/${Path.NowPlayingMovies}`}
         />
