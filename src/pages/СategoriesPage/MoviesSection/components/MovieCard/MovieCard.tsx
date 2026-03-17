@@ -43,7 +43,7 @@ export const MovieCard = ({ movie, isFavorite = false }: Props) => {
                     image={
                         movie.poster_path
                             ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-                            : "https://via.placeholder.com"
+                            : "/noPoster.svg"
                     }
                     alt={movie.title}
                     sx={{ width: "100%", height: "100%", objectFit: "cover" }}

@@ -24,7 +24,7 @@ export const imageWrapperStyles: SxProps<Theme> = {
     borderRadius: "12px",
     overflow: "hidden",
     aspectRatio: "2/3",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#f0f0f0",
     width: "100%",
 };
 

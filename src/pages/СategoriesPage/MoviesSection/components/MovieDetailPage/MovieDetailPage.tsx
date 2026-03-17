@@ -55,8 +55,9 @@ export const MovieDetailPage = () => {
                     <Card elevation={6} sx={{ borderRadius: 3 }}>
                         <CardMedia
                             component="img"
-                            image={movie.poster_path ? `${IMAGE_BASE_URL}${movie.poster_path}` : 'https://placehold.co'}
+                            image={movie.poster_path ? `${IMAGE_BASE_URL}${movie.poster_path}` : '/noPoster.svg'}
                             alt={movie.title}
+                            sx={{backgroundColor: "#f0f0f0",}}
                         />
                     </Card>
                 </Grid>
