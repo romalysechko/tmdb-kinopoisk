@@ -80,8 +80,6 @@ export const SearchPage = () => {
                     )}
                 </>
             )}
-
-            {/* Пагинация */}
             {!isLoading && totalPages > 1 && query && (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
                     <Pagination
